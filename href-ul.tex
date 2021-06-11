@@ -22,10 +22,10 @@
 
 \documentclass[12pt]{article}
 \usepackage{/code/ffcode/ffcode}
-\usepackage{href}
+\usepackage{href-ul}
 \usepackage{multicol}
 \usepackage{xcolor}
-\title{\ff{href}: \LaTeX{} Package \\ That Makes Underscored Links}
+\title{\ff{href-ul}: \LaTeX{} Package \\ That Makes Underscored Links}
 \author{Yegor Bugayenko}
 \date{0.0.0 00.00.0000}
 \begin{document}
@@ -45,7 +45,7 @@ This package helps you make your hyperlinks underscored:
 \raggedcolumns
 \begin{verbatim}
 \documentclass{article}
-\usepackage{href}
+\usepackage{href-ul}
 \begin{document}
 Go to \href{https://google.com}{Google}!
 \end{document}
@@ -56,15 +56,15 @@ Go to \href{https://google.com}{Google}!
 Go to \href{https://google.com}{Google}!
 \end{multicols}
 
-Changing the {\color{red}\href{https://github.com/yegor256/href}{color}} of the text also changes the color of the line.
+Changing the {\color{red}\href{https://github.com/yegor256/href-ul}{color}} of the text also changes the color of the line.
 
-Changing the {\Large\href{https://github.com/yegor256/href}{size}} of the text doesn't change the width of the line.
+Changing the {\Large\href{https://github.com/yegor256/href-ul}{size}} of the text doesn't change the width of the line.
 
 The package uses
 \ff{\href{https://ctan.org/pkg/hyperref}{hyperref}}
 and \ff{\href{https://ctan.org/pkg/ulem}{ulem}} packages.
 
 More details about this package you can find
-in the \ff{\href{https://github.com/yegor256/href}{yegor256/href}} GitHub repository.
+in the \ff{\href{https://github.com/yegor256/href-ul}{yegor256/href-ul}} GitHub repository.
 
 \end{document}

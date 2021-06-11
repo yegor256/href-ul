@@ -24,38 +24,38 @@
 
 .ONESHELL:
 
-all: href.pdf zip
+all: href-ul.pdf zip
 
-href.pdf: href.tex href.sty
+href-ul.pdf: href-ul.tex href-ul.sty
 	latexmk -pdf $<
 	texsc $<
 	texqc --ignore 'You have requested document class' $<
 
-zip: href.pdf href.sty
+zip: href-ul.pdf href-ul.sty
 	rm -rf package
 	mkdir package
 	cd package
-	mkdir href
-	cd href
+	mkdir href-ul
+	cd href-ul
 	cp ../../README.md .
 	version=$$(cat ../../VERSION.txt)
 	echo "Version is: $${version}"
 	date=$$(date +%Y/%m/%d)
 	echo "Date is: $${date}"
-	cp ../../href.sty .
-	gsed -i "s|0\.0\.0|$${version}|" href.sty
-	gsed -i "s|00\.00\.0000|$${date}|" href.sty
-	cp ../../href.tex .
-	gsed -i "s|0\.0\.0|$${version}|" href.tex
-	gsed -i "s|00\.00\.0000|$${date}|" href.tex
+	cp ../../href-ul.sty .
+	gsed -i "s|0\.0\.0|$${version}|" href-ul.sty
+	gsed -i "s|00\.00\.0000|$${date}|" href-ul.sty
+	cp ../../href-ul.tex .
+	gsed -i "s|0\.0\.0|$${version}|" href-ul.tex
+	gsed -i "s|00\.00\.0000|$${date}|" href-ul.tex
 	cp ../../.latexmkrc .
-	latexmk -pdf href.tex
+	latexmk -pdf href-ul.tex
 	rm .latexmkrc
 	rm -rf _minted-* *.aux *.bbl *.bcf *.blg *.fdb_latexmk *.fls *.log *.run.xml *.out *.exc
-	cat href.sty | grep RequirePackage | gsed -e "s/.*{\(.\+\)}.*/hard \1/" > DEPENDS.txt
+	cat href-ul.sty | grep RequirePackage | gsed -e "s/.*{\(.\+\)}.*/hard \1/" > DEPENDS.txt
 	cd ..
-	zip -r href.zip *
-	cp href.zip ..
+	zip -r href-ul.zip *
+	cp href-ul.zip ..
 	cd ..
 
 clean:
