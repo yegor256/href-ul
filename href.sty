@@ -23,8 +23,10 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{href}[00.00.0000 0.0.0 Underscored Hyperlinks]
 
-\RequirePackage[normalem]{ulem}
-\RequirePackage[hidelinks]{hyperref}
+\PassOptionsToPackage{normalem}{ulem}
+\RequirePackage{ulem}
+\PassOptionsToPackage{hidelinks}{hyperref}
+\RequirePackage{hyperref}
 
 \makeatletter\begingroup%
 \catcode`\$=6 %
