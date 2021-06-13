@@ -1,7 +1,7 @@
 [![make](https://github.com/yegor256/href-ul/actions/workflows/make.yml/badge.svg)](https://github.com/yegor256/href-ul/actions/workflows/make.yml)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/yegor256/href-ul/blob/master/LICENSE.txt)
 
-This LaTeX package makes hyperlinks underscored. 
+This LaTeX package makes hyperlinks underlined. 
 The package uses [`hyperref`](https://ctan.org/pkg/hyperref) 
 and [`ulem`](https://ctan.org/pkg/ulem) packages.
 
