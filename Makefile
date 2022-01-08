@@ -1,6 +1,6 @@
 # (The MIT License)
 #
-# Copyright (c) 2021 Yegor Bugayenko
+# Copyright (c) 2021-2022 Yegor Bugayenko
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the 'Software'), to deal
@@ -21,10 +21,12 @@
 # SOFTWARE.
 
 .SHELLFLAGS = -e -x -c
-
 .ONESHELL:
 
-all: href-ul.pdf zip
+all: href-ul.pdf copyright zip
+
+copyright:
+	grep -q -r "2021-$$(date +%Y)" --include '*.tex' --include '*.sty' --include 'Makefile' .
 
 href-ul.pdf: href-ul.tex href-ul.sty
 	latexmk -pdf $<
@@ -38,7 +40,7 @@ zip: href-ul.pdf href-ul.sty
 	mkdir href-ul
 	cd href-ul
 	cp ../../README.md .
-	version=$$(cat ../../VERSION.txt)
+	version=$$(curl --silent -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/yegor256/href-ul/releases/latest | jq -r '.tag_name')
 	echo "Version is: $${version}"
 	date=$$(date +%Y/%m/%d)
 	echo "Date is: $${date}"
@@ -54,8 +56,8 @@ zip: href-ul.pdf href-ul.sty
 	rm -rf _minted-* *.aux *.bbl *.bcf *.blg *.fdb_latexmk *.fls *.log *.run.xml *.out *.exc
 	cat href-ul.sty | grep RequirePackage | gsed -e "s/.*{\(.\+\)}.*/hard \1/" > DEPENDS.txt
 	cd ..
-	zip -r href-ul.zip *
-	cp href-ul.zip ..
+	zip -r href-ul-$${version}.zip *
+	cp href-ul-$${version}.zip ..
 	cd ..
 
 clean:
