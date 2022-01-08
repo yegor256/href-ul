@@ -23,42 +23,48 @@
 .SHELLFLAGS = -e -x -c
 .ONESHELL:
 
-all: href-ul.pdf copyright zip
+NAME=href-ul
+
+all: $(NAME).pdf test copyright zip
 
 copyright:
-	grep -q -r "2021-$$(date +%Y)" --include '*.tex' --include '*.sty' --include 'Makefile' .
+	find . -name '*.tex' -o -name '*.sty' -o -name 'Makefile' | xargs -n1 grep -r "(c) 2021-$$(date +%Y) "
 
-href-ul.pdf: href-ul.tex href-ul.sty
+test: tests/*.tex $(NAME).sty
+	cd tests && make && cd ..
+
+$(NAME).pdf: $(NAME).tex $(NAME).sty
 	latexmk -pdf $<
 	texsc $<
 	texqc --ignore 'You have requested document class' $<
 
-zip: href-ul.pdf href-ul.sty
+zip: $(NAME).pdf $(NAME).sty
 	rm -rf package
 	mkdir package
 	cd package
-	mkdir href-ul
-	cd href-ul
+	mkdir $(NAME)
+	cd $(NAME)
 	cp ../../README.md .
-	version=$$(curl --silent -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/yegor256/href-ul/releases/latest | jq -r '.tag_name')
+	version=$$(curl --silent -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/yegor256/$(NAME)/releases/latest | jq -r '.tag_name')
 	echo "Version is: $${version}"
 	date=$$(date +%Y/%m/%d)
 	echo "Date is: $${date}"
-	cp ../../href-ul.sty .
-	gsed -i "s|0\.0\.0|$${version}|" href-ul.sty
-	gsed -i "s|00\.00\.0000|$${date}|" href-ul.sty
-	cp ../../href-ul.tex .
-	gsed -i "s|0\.0\.0|$${version}|" href-ul.tex
-	gsed -i "s|00\.00\.0000|$${date}|" href-ul.tex
+	cp ../../$(NAME).sty .
+	gsed -i "s|0\.0\.0|$${version}|" $(NAME).sty
+	gsed -i "s|00\.00\.0000|$${date}|" $(NAME).sty
+	cp ../../$(NAME).tex .
+	gsed -i "s|0\.0\.0|$${version}|" $(NAME).tex
+	gsed -i "s|00\.00\.0000|$${date}|" $(NAME).tex
 	cp ../../.latexmkrc .
-	latexmk -pdf href-ul.tex
+	latexmk -pdf $(NAME).tex
 	rm .latexmkrc
 	rm -rf _minted-* *.aux *.bbl *.bcf *.blg *.fdb_latexmk *.fls *.log *.run.xml *.out *.exc
-	cat href-ul.sty | grep RequirePackage | gsed -e "s/.*{\(.\+\)}.*/hard \1/" > DEPENDS.txt
+	cat $(NAME).sty | grep RequirePackage | gsed -e "s/.*{\(.\+\)}.*/hard \1/" > DEPENDS.txt
 	cd ..
-	zip -r href-ul-$${version}.zip *
-	cp href-ul-$${version}.zip ..
+	zip -r $(NAME)-$${version}.zip *
+	cp $(NAME)-$${version}.zip ..
 	cd ..
 
 clean:
 	git clean -dfX
+	cd tests && make clean && cd ..
