@@ -18,9 +18,6 @@ Go to \href{https://www.google.com}{Google}!
 \end{document}
 ```
 
-The full example and all commands are available in the 
-[`href-ul.tex`](https://github.com/yegor256/href/blob/master/href-ul.tex) file.
-
 If you want to contribute yourself, make a fork, then create a branch, 
 then run `make` in the root directory.
 It should compile everything without errors. If not, submit an issue and wait.
