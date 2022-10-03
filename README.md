@@ -1,4 +1,5 @@
-[![make](https://github.com/yegor256/href-ul/actions/workflows/latexmk.yml/badge.svg)](https://github.com/yegor256/href-ul/actions/workflows/latexmk.yml)
+[![make](https://github.com/yegor256/href-ul/actions/workflows/l3build.yml/badge.svg)](https://github.com/yegor256/href-ul/actions/workflows/l3build.yml)
+[![CTAN](https://img.shields.io/ctan/v/href-ul)](https://ctan.org/pkg/href-ul)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/yegor256/href-ul/blob/master/LICENSE.txt)
 
 This LaTeX package makes hyperlinks underlined. 
