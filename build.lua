@@ -21,7 +21,7 @@ uploadconfig = {
   summary = "Underscored LaTeX hyperlinks",
   repository = "https://github.com/yegor256/href-ul",
   support = "",
-  topic = {"sys-supp", "exec-foreign"}
+  topic = {"hyper", "verbatim", "underline"}
 }
 
 function update_tag(file, content, tagname, tagdate)
