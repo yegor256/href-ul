@@ -6,11 +6,27 @@ on:
     branches: master
 jobs:
   l3build:
-    runs-on: ubuntu-20.04
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04, macos-12]
     steps:
       - uses: actions/checkout@v3
-      - uses: teatimeguest/setup-texlive-action@v2.4.1
+      - run: sudo apt-get install -y python3-pygments && sudo pip3 install pygments
+        if: matrix.os == 'ubuntu-20.04'
+      - run: pip3 install pygments
+        if: matrix.os == 'macos-12'
+      - run: sudo apt-get -y install ghostscript
+        if: matrix.os == 'ubuntu-20.04'
+      - uses: teatimeguest/setup-texlive-action@v2.5.0
         with:
+          update-all-packages: true
           package-file: DEPENDS.txt
-          packages: scheme-basic xetex libertine l3build
-      - run: l3build check -q --show-log-on-error
+          packages: scheme-basic xetex libertine l3build microtype href-ul pdfcrop docshots pgfopts pgf environ hypdoc mathtools etoolbox
+      - run: l3build ctan --show-log-on-error --halt-on-error
+      - uses: JamesIves/github-pages-deploy-action@v4.4.1
+        with:
+          branch: gh-pages
+          folder: build/distrib/tds/tex/latex
+          clean: true
+        if: github.ref == 'refs/heads/master' && matrix.os == 'ubuntu-20.04'

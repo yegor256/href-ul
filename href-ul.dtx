@@ -59,6 +59,7 @@
 \AddToHook{env/verbatim/begin}{\microtypesetup{protrusion=false}}
 \usepackage{href-ul}
 \usepackage{xcolor}
+\usepackage[dtx]{docshots}
 \PageIndex
 \EnableCrossrefs
 \CodelineIndex
@@ -79,40 +80,48 @@
 %
 % \section{Introduction}
 %
-% This package helps you make your hyperlinks underlined:
+% This package helps you make your hyperlinks underlined, using |\href| command:
 %
-% \begin{multicols}{2}
-% \setlength{\parskip}{0pt}
-% \raggedcolumns
-%\iffalse
-%<*verb>
-%\fi
-\begin{verbatim}
-\documentclass{article}
-\usepackage{href-ul}
-\begin{document}
-Go to
-  \href{https://google.com}{Google}!
-\end{document}
-\end{verbatim}
-%\iffalse
-%</verb>
-%\fi
-%
-% \columnbreak
-%
-% Go to \href{https://google.com}{Google}!
-% \end{multicols}
+% \begin{docshot}
+% \documentclass{article}
+% \pagestyle{empty}
+% \usepackage{href-ul}
+% \begin{document}
+% Go to
+%   \href{https://google.com}{Google}!
+% \end{document}
+% \end{docshot}
 
-% Changing the {\color{red}\href{https://github.com/yegor256/href-ul}{color}} of the text also changes the color of the line.
+% Changing the color of the text also changes the color of the line:
+% \begin{docshot}
+% \documentclass{article}
+% \pagestyle{empty}
+% \usepackage{href-ul}
+% \usepackage{xcolor}
+% \begin{document}
+% Go to {\color{red}
+%   \href{https://google.com}{Google}}!
+% \end{document}
+% \end{docshot}
 
-% Changing the {\Large\href{https://github.com/yegor256/href-ul}{size}} of the text doesn't change the height of the line.
+% Changing the size of the text doesn't change the height of the line:
+% \begin{docshot}
+% \documentclass{article}
+% \pagestyle{empty}
+% \usepackage{href-ul}
+% \begin{document}
+% You can always find \\ anything in
+% {\Large \href{https://google.com}{Google}},
+% but \\ it's better to learn
+% something \\ from a school too!
+% \end{document}
+% \end{docshot}
 
 % \StopEventually{}
 
 % \section{Implementation}
-
 % \changes{v0.2.0}{2021/06/11}{Initial version}
+% \changes{v0.3.0}{2022/10/31}{We started using "docshots" package for better rendering of examples.}
 
 % First, we include two packages:
 %    \begin{macrocode}
