@@ -117,16 +117,47 @@
 % \end{document}
 % \end{docshot}
 
+% With the help of the |plain| package option, it's possible to avoid underscores:
+% \docshotOptions{firstline=3,lastline=7}
+% \begin{docshot}
+% \documentclass{article}
+% \pagestyle{empty}
+% \usepackage[plain]{href-ul}
+% \begin{document}
+% This link has no underscore: \\
+% \href{https://google.com}{Google}.
+% \end{document}
+% \end{docshot}
+
 % \StopEventually{}
 
 % \section{Implementation}
 % \changes{v0.2.0}{2021/06/11}{Initial version}
 % \changes{v0.3.0}{2022/10/31}{We started using "docshots" package for better rendering of examples.}
 
-% First, we include two packages:
+% First, we process package options:
+% \changes{0.4.0}{2024/01/09}{Package options processing introduced with a single \texttt{plain} option.}
 %    \begin{macrocode}
+\RequirePackage{pgfopts}
+\pgfkeys{
+  /href/.cd,
+  plain/.store in=\href@plain
+}
+\ProcessPgfPackageOptions{/href}
+%    \end{macrocode}
+
+% Then, we include the |ulem| package in order to enable underscores:
+%    \begin{macrocode}
+\makeatletter
+\ifdefined\href@plain\else
 \PassOptionsToPackage{normalem}{ulem}
 \RequirePackage{ulem}
+\fi
+\makeatother
+%    \end{macrocode}
+
+% Then, we include the |hyperref| package for PDF hyperlinks:
+%    \begin{macrocode}
 \PassOptionsToPackage{hidelinks}{hyperref}
 \RequirePackage{hyperref}
 %    \end{macrocode}
@@ -134,14 +165,17 @@
 % \begin{macro}{\href}
 % Then, we define the |\href| command:
 %    \begin{macrocode}
-\makeatletter\begingroup%
+\makeatletter%
+\begingroup%
 \catcode`\$=6 %
 \catcode`\#=12 %
 \gdef\href@split$1#$2#$3\\$4{%
-  \hyper@@link{$1}{$2}{\uline{$4}}%
+  \hyper@@link{$1}{$2}{%
+  	\ifdefined\href@plain$4\else\uline{$4}\fi}%
   \endgroup%
 }%
-\endgroup\makeatother
+\endgroup%
+\makeatother%
 %    \end{macrocode}
 % \end{macro}
 
