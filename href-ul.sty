@@ -7,7 +7,7 @@
 %% href-ul.dtx  (with options: `package')
 %% (The MIT License)
 %% 
-%% Copyright (c) 2021-2022 Yegor Bugayenko
+%% Copyright (c) 2021-2024 Yegor Bugayenko
 %% 
 %% Permission is hereby granted, free of charge, to any person obtaining a copy
 %% of this software and associated documentation files (the 'Software'), to deal
@@ -31,26 +31,42 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{href-ul}
-[0000-00-000 0.0.0 Underlined Hyperlinks]
+[2024-01-090 06.42.18 Underlined Hyperlinks]
 
 
 
 
 
 
+
+\RequirePackage{pgfopts}
+\pgfkeys{
+  /href/.cd,
+  plain/.store in=\href@plain
+}
+\ProcessPgfPackageOptions{/href}
+
+\makeatletter
+\ifdefined\href@plain\else
 \PassOptionsToPackage{normalem}{ulem}
 \RequirePackage{ulem}
+\fi
+\makeatother
+
 \PassOptionsToPackage{hidelinks}{hyperref}
 \RequirePackage{hyperref}
 
-\makeatletter\begingroup%
+\makeatletter%
+\begingroup%
 \catcode`\$=6 %
 \catcode`\#=12 %
 \gdef\href@split$1#$2#$3\\$4{%
-  \hyper@@link{$1}{$2}{\uline{$4}}%
+  \hyper@@link{$1}{$2}{%
+   \ifdefined\href@plain$4\else\uline{$4}\fi}%
   \endgroup%
 }%
-\endgroup\makeatother
+\endgroup%
+\makeatother%
 
 
 \endinput
