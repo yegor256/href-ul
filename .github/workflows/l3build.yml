@@ -21,7 +21,7 @@
 # SOFTWARE.
 ---
 name: l3build
-on:
+'on':
   push:
     branches: master
   pull_request:
@@ -31,15 +31,17 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-22.04, macos-12]
+        os: [ubuntu-24.04, macos-13]
     steps:
       - uses: actions/checkout@v4
-      - run: sudo apt-get install -y python3-pygments && sudo pip3 install pygments
-        if: matrix.os == 'ubuntu-22.04'
+      - run: |
+          sudo apt-get install -y python3-pygments
+          sudo pip3 install pygments
+        if: matrix.os == 'ubuntu-24.04'
       - run: pip3 install pygments
-        if: matrix.os == 'macos-12'
+        if: matrix.os == 'macos-13'
       - run: sudo apt-get -y install ghostscript
-        if: matrix.os == 'ubuntu-22.04'
+        if: matrix.os == 'ubuntu-24.04'
       - uses: teatimeguest/setup-texlive-action@v3.3.2
         with:
           update-all-packages: true
@@ -50,10 +52,10 @@ jobs:
           cp build/distrib/tds/tex/latex/href-ul/href-ul.sty build/gh-pages
           sed -i "s/0\.0\.0/$(date +%H.%M.%S)/g" build/gh-pages/href-ul.sty
           sed -i "s/0000-00-00/$(date +%Y-%m-%d)/g" build/gh-pages/href-ul.sty
-        if: github.ref == 'refs/heads/master' && matrix.os == 'ubuntu-22.04'
+        if: github.ref == 'refs/heads/master' && matrix.os == 'ubuntu-24.04'
       - uses: JamesIves/github-pages-deploy-action@v4.6.8
         with:
           branch: gh-pages
           folder: build/gh-pages
           clean: true
-        if: github.ref == 'refs/heads/master' && matrix.os == 'ubuntu-22.04'
+        if: github.ref == 'refs/heads/master' && matrix.os == 'ubuntu-24.04'
