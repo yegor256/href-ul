@@ -4,13 +4,13 @@
 [![CTAN](https://img.shields.io/ctan/v/href-ul)](https://ctan.org/pkg/href-ul)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/yegor256/href-ul/blob/master/LICENSE.txt)
 
-This LaTeX package makes hyperlinks underlined. 
-The package uses [`hyperref`](https://ctan.org/pkg/hyperref) 
+This LaTeX package makes hyperlinks underlined.
+The package uses [`hyperref`](https://ctan.org/pkg/hyperref)
 and [`ulem`](https://ctan.org/pkg/ulem) packages.
 
 First,
 [install it](https://en.wikibooks.org/wiki/LaTeX/Installing_Extra_Packages)
-from [CTAN](https://ctan.org/pkg/href-ul) 
+from [CTAN](https://ctan.org/pkg/href-ul)
 and then use in the preamble:
 
 ```tex
