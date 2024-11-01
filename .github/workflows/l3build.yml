@@ -34,12 +34,6 @@ jobs:
         os: [ubuntu-24.04, macos-13]
     steps:
       - uses: actions/checkout@v4
-      - run: |
-          sudo apt-get install -y python3-pygments
-          sudo pip3 install pygments
-        if: matrix.os == 'ubuntu-24.04'
-      - run: pip3 install pygments
-        if: matrix.os == 'macos-13'
       - run: sudo apt-get -y install ghostscript
         if: matrix.os == 'ubuntu-24.04'
       - uses: teatimeguest/setup-texlive-action@v3.3.2
