@@ -50,7 +50,7 @@
 %<package>\NeedsTeXFormat{LaTeX2e}
 %<package>\ProvidesPackage{href-ul}
 %<*package>
-[0000-00-000 0.0.0 Underlined Hyperlinks]
+[0000-00-00 0.0.0 Underlined Hyperlinks]
 %</package>
 %<*driver>
 \documentclass{ltxdoc}
@@ -159,6 +159,7 @@
 % Then, we include the |hyperref| package for PDF hyperlinks:
 %    \begin{macrocode}
 \PassOptionsToPackage{hidelinks}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
 \RequirePackage{hyperref}
 %    \end{macrocode}
 
