@@ -150,7 +150,7 @@
 \makeatletter
 \ifdefined\href@plain\else
 \PassOptionsToPackage{normalem}{ulem}
-\RequirePackage{ulem}
+\RequirePackage{soul}
 \fi
 \makeatother
 %    \end{macrocode}
@@ -172,7 +172,7 @@
 \catcode`\#=12 %
 \gdef\href@split$1#$2#$3\\$4{%
   \hyper@@link{$1}{$2}{%
-    \ifdefined\href@plain$4\else\uline{$4}\fi}%
+    \ifdefined\href@plain$4\else\ul{$4}\fi}%
   \endgroup%
 }%
 \endgroup%
@@ -185,8 +185,7 @@
   \def\UrlBreaks{\do\.\do\@\do\\\do\/\do\!\do\_\do\|\do\;\do\>\do\]%
     \do\)\do\,\do\?\do\'\do+\do\=\do\#\do\-}%
   \def\UrlBigBreaks{\do\:\do\/}%
-  \href@orig{#1}{\sloppy\hyphenpenalty=500\relpenalty=500%
-    \pretolerance=200\tolerance=900 #2}%
+  \href@orig{#1}{#2}%
   \endgroup
 }%
 \makeatother%

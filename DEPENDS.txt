@@ -1,6 +1,6 @@
 hard hyperref
 hard pgfopts
-hard ulem
+hard soul
 hard url
 soft docshots
 soft environ
