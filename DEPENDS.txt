@@ -1,6 +1,7 @@
 hard hyperref
-hard ulem
 hard pgfopts
+hard ulem
+hard url
 soft docshots
 soft environ
 soft etoolbox

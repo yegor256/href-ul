@@ -72,6 +72,22 @@
 %   \href{https://google.com}{Google}!
 % \end{document}
 % \end{docshot}
+%
+% The package also supports URL breaking at various special characters, allowing
+% long URLs to break naturally across lines:
+%
+% \begin{docshot}
+% \documentclass{article}
+% \pagestyle{empty}
+% \usepackage{href-ul}
+% \begin{document}
+% \parbox{7em}{
+% \href{https://google.com}{%
+% This link has a very
+% long URL that will break
+% at appropriate points}}
+% \end{document}
+% \end{docshot}
 
 % Changing the color of the text also changes the color of the line:
 % \begin{docshot}
@@ -115,9 +131,10 @@
 % \section{Implementation}
 % \changes{v0.2.0}{2021/06/11}{Initial version}
 % \changes{v0.3.0}{2022/10/31}{We started using "docshots" package for better rendering of examples.}
+% \changes{0.4.0}{2024/01/09}{Package options processing introduced with a single \texttt{plain} option.}
+% \changes{0.5.0}{2025/03/02}{Enhanced URL breaking functionality to improve handling of long URLs.}
 
 % First, we process package options:
-% \changes{0.4.0}{2024/01/09}{Package options processing introduced with a single \texttt{plain} option.}
 %    \begin{macrocode}
 \RequirePackage{pgfopts}
 \pgfkeys{
@@ -142,6 +159,7 @@
 \PassOptionsToPackage{hidelinks}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
 \RequirePackage{hyperref}
+\RequirePackage{url}
 %    \end{macrocode}
 
 % \begin{macro}{\href}
@@ -153,10 +171,22 @@
 \catcode`\#=12 %
 \gdef\href@split$1#$2#$3\\$4{%
   \hyper@@link{$1}{$2}{%
-  	\ifdefined\href@plain$4\else\uline{$4}\fi}%
+    \ifdefined\href@plain$4\else\uline{$4}\fi}%
   \endgroup%
 }%
 \endgroup%
+
+% Redefine \href to use \url's breaking capabilities
+\let\href@orig\href
+\renewcommand{\href}[2]{%
+  \begingroup
+  \urlstyle{same}%
+  \def\UrlBreaks{\do\.\do\@\do\\\do\/\do\!\do\_\do\|\do\;\do\>\do\]%
+    \do\)\do\,\do\?\do\'\do+\do\=\do\#\do\-}%
+  \def\UrlBigBreaks{\do\:\do\/}%
+  \href@orig{#1}{#2}%
+  \endgroup
+}%
 \makeatother%
 %    \end{macrocode}
 % \end{macro}

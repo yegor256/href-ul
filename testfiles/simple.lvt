@@ -9,4 +9,7 @@
 
 Hello, \href{https://www.google.com}{Google}!
 
+% Testing URL breaking
+\href{https://www.very-long-url-that-should-break-properly-at-hyphens-and-other-breaking-points.com/path/to/resource?param1=value1&param2=value2}{This is a link with a very long URL that should break properly across lines when needed}
+
 \END
