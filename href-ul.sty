@@ -31,7 +31,7 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{href-ul}
-[2025/03/02 14.48.37 Underlined Hyperlinks]
+[2025/03/02 15.17.17 Underlined Hyperlinks]
 
 
 
@@ -76,7 +76,8 @@
   \def\UrlBreaks{\do\.\do\@\do\\\do\/\do\!\do\_\do\|\do\;\do\>\do\]%
     \do\)\do\,\do\?\do\'\do+\do\=\do\#\do\-}%
   \def\UrlBigBreaks{\do\:\do\/}%
-  \href@orig{#1}{#2}%
+  \href@orig{#1}{\sloppy\hyphenpenalty=500\relpenalty=500%
+    \pretolerance=200\tolerance=900 #2}%
   \endgroup
 }%
 \makeatother%
