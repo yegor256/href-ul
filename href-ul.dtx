@@ -145,11 +145,10 @@
 \ProcessPgfPackageOptions{/href}
 %    \end{macrocode}
 
-% Then, we include the |ulem| package in order to enable underscores:
+% Then, we include the |soul| package in order to enable underscores:
 %    \begin{macrocode}
 \makeatletter
 \ifdefined\href@plain\else
-\PassOptionsToPackage{normalem}{ulem}
 \RequirePackage{soul}
 \fi
 \makeatother
@@ -163,8 +162,7 @@
 \RequirePackage{url}
 %    \end{macrocode}
 
-% \begin{macro}{\href}
-% Then, we define the |\href| command:
+% Then, we re-define the default |\href| command:
 %    \begin{macrocode}
 \makeatletter%
 \begingroup%
@@ -176,8 +174,11 @@
   \endgroup%
 }%
 \endgroup%
+%    \end{macrocode}
 
-% Redefine \href to use \url's breaking capabilities for both URL and text
+% \begin{macro}{\href}
+% Then, we define our own |\href| command:
+%    \begin{macrocode}
 \let\href@orig\href
 \renewcommand{\href}[2]{%
   \begingroup
