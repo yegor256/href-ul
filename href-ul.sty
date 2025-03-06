@@ -31,7 +31,7 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{href-ul}
-[2025/03/02 15.57.27 Underlined Hyperlinks]
+[2025/03/06 08.58.33 Underlined Hyperlinks]
 
 
 
@@ -67,7 +67,9 @@
   \endgroup%
 }%
 \endgroup%
+\makeatother%
 
+\makeatletter%
 \let\href@orig\href
 \renewcommand{\href}[2]{%
   \begingroup
