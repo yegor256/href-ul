@@ -174,11 +174,13 @@
   \endgroup%
 }%
 \endgroup%
+\makeatother%
 %    \end{macrocode}
 
 % \begin{macro}{\href}
 % Then, we define our own |\href| command:
 %    \begin{macrocode}
+\makeatletter%
 \let\href@orig\href
 \renewcommand{\href}[2]{%
   \begingroup
