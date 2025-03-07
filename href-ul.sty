@@ -31,7 +31,7 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{href-ul}
-[2025/03/06 10.52.08 Underlined Hyperlinks]
+[2025/03/07 09.30.14 Underlined Hyperlinks]
 
 
 
@@ -57,31 +57,18 @@
 \RequirePackage{hyperref}
 \RequirePackage{url}
 
-\makeatletter%
-\begingroup%
-\catcode`\$=6 %
-\catcode`\#=12 %
+\makeatletter
+\begingroup
+\catcode`\$=6
+\catcode`\#=12
 \gdef\href@split$1#$2#$3\\$4{%
   \hyper@@link{$1}{$2}{%
     \ifdefined\href@plain$4\else\ul{$4}\fi%
   }%
   \endgroup%
-}%
-\endgroup%
-\makeatother%
-
-\makeatletter%
-\let\href@orig\href
-\renewcommand{\href}[2]{%
-  \begingroup
-  \urlstyle{same}%
-  \def\UrlBreaks{\do\.\do\@\do\\\do\/\do\!\do\_\do\|\do\;\do\>\do\]%
-    \do\)\do\,\do\?\do\'\do+\do\=\do\#\do\-}%
-  \def\UrlBigBreaks{\do\:\do\/}%
-  \href@orig{#1}{#2}%
-  \endgroup
-}%
-\makeatother%
+}
+\endgroup
+\makeatother
 
 
 \endinput
