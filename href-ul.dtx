@@ -131,11 +131,11 @@
 \ProcessPgfPackageOptions{/href}
 %    \end{macrocode}
 
-% Then, we include the |soul| package in order to enable underscores:
+% Then, we include the |ulem| package in order to enable underscores:
 %    \begin{macrocode}
 \makeatletter
 \ifdefined\href@plain\else
-\RequirePackage{soul}
+\RequirePackage{ulem}
 \fi
 \makeatother
 %    \end{macrocode}
@@ -156,7 +156,7 @@
 \catcode`\#=12
 \gdef\href@split$1#$2#$3\\$4{%
   \hyper@@link{$1}{$2}{%
-    \ifdefined\href@plain$4\else\ul{$4}\fi%
+    \ifdefined\href@plain$4\else\uline{$4}\fi%
   }%
   \endgroup%
 }
