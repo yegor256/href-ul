@@ -31,7 +31,7 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{href-ul}
-[2025/03/07 09.30.14 Underlined Hyperlinks]
+[2025/03/07 09.30.35 Underlined Hyperlinks]
 
 
 
@@ -48,7 +48,7 @@
 
 \makeatletter
 \ifdefined\href@plain\else
-\RequirePackage{soul}
+\RequirePackage{ulem}
 \fi
 \makeatother
 
@@ -63,7 +63,7 @@
 \catcode`\#=12
 \gdef\href@split$1#$2#$3\\$4{%
   \hyper@@link{$1}{$2}{%
-    \ifdefined\href@plain$4\else\ul{$4}\fi%
+    \ifdefined\href@plain$4\else\uline{$4}\fi%
   }%
   \endgroup%
 }
