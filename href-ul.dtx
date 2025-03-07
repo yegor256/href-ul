@@ -73,21 +73,7 @@
 % \end{document}
 % \end{docshot}
 %
-% The package also supports URL breaking at various special characters, allowing
-% long URLs to break naturally across lines:
-%
-% \begin{docshot}
-% \documentclass{article}
-% \pagestyle{empty}
-% \usepackage{href-ul}
-% \begin{document}
-% \parbox{7em}{
-% \href{https://google.com}{%
-% This-link-has-a-very-%
-% long-URL-that-will-break-%
-% at-appropriate-points}}
-% \end{document}
-% \end{docshot}
+% The package doesn't support line breaking inside the title of the link.
 
 % Changing the color of the text also changes the color of the line:
 % \begin{docshot}
@@ -164,37 +150,19 @@
 
 % Then, we re-define the default |\href| command:
 %    \begin{macrocode}
-\makeatletter%
-\begingroup%
-\catcode`\$=6 %
-\catcode`\#=12 %
+\makeatletter
+\begingroup
+\catcode`\$=6
+\catcode`\#=12
 \gdef\href@split$1#$2#$3\\$4{%
   \hyper@@link{$1}{$2}{%
     \ifdefined\href@plain$4\else\ul{$4}\fi%
   }%
   \endgroup%
-}%
-\endgroup%
-\makeatother%
+}
+\endgroup
+\makeatother
 %    \end{macrocode}
-
-% \begin{macro}{\href}
-% Then, we define our own |\href| command:
-%    \begin{macrocode}
-\makeatletter%
-\let\href@orig\href
-\renewcommand{\href}[2]{%
-  \begingroup
-  \urlstyle{same}%
-  \def\UrlBreaks{\do\.\do\@\do\\\do\/\do\!\do\_\do\|\do\;\do\>\do\]%
-    \do\)\do\,\do\?\do\'\do+\do\=\do\#\do\-}%
-  \def\UrlBigBreaks{\do\:\do\/}%
-  \href@orig{#1}{#2}%
-  \endgroup
-}%
-\makeatother%
-%    \end{macrocode}
-% \end{macro}
 
 % \Finale
 
