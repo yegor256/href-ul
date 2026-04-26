@@ -8,7 +8,7 @@ soft etoolbox
 soft href-ul
 soft hypdoc
 soft l3build
-soft libertine
+soft paratype
 soft mathtools
 soft microtype
 soft pdfcrop
