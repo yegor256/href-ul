@@ -21,7 +21,7 @@ Go to \href{https://www.google.com}{Google}!
 \end{document}
 ```
 
-Otherwise, you can download [`href-ul.sty`][sty] and add to your project.
+Otherwise, you can download [`href-ul.sty`][sty] and add it to your project.
 
 If you want to contribute yourself, make a fork, then create a branch,
 then run `l3build ctan` in the root directory.
