@@ -27,6 +27,11 @@ jobs:
           package_file: .texlive-packages.txt
           texlive_version: 2025
       - run: l3build ctan --show-log-on-error --halt-on-error
+      - if: failure()
+        run: |
+          echo '::group::href-ul.log'
+          cat build/doc/href-ul.log 2>/dev/null || echo 'no build/doc/href-ul.log'
+          echo '::endgroup::'
       - run: |
           mkdir build/gh-pages
           cp build/distrib/tds/tex/latex/href-ul/href-ul.sty build/gh-pages
