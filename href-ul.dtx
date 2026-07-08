@@ -121,6 +121,7 @@
 % \changes{0.5.0}{2025/03/02}{Enhanced URL breaking functionality to improve handling of long URLs.}
 % \changes{0.5.1}{2025/03/02}{Added text breaking capabilities to the second argument of \texttt{\char`\\href} and shifted from \texttt{ulem} to \texttt{soul} package.}
 % \changes{0.5.2}{2025/03/07}{Decided not to use \texttt{soul} package, because it's too fragile, and returned back to \texttt{ulem}.}
+% \changes{0.5.3}{2026/07/08}{Passed the \texttt{normalem} option to \texttt{ulem} (via \texttt{\char`\\PassOptionsToPackage}, to avoid option clashes) so that \texttt{\char`\\emph} keeps italicizing instead of underlining.}
 
 % First, we process package options:
 %    \begin{macrocode}
@@ -132,10 +133,15 @@
 \ProcessPgfPackageOptions{/href}
 %    \end{macrocode}
 
-% Then, we include the |ulem| package in order to enable underscores:
+% Then, we include the |ulem| package in order to enable underscores. We pass
+% the |normalem| option so that |ulem| does not replace italics with
+% underlining in text emphasized by |\emph|. The option is passed via
+% |\PassOptionsToPackage| rather than |\RequirePackage[normalem]{ulem}|, so that
+% no ``option clash'' occurs if the document already loads |ulem| itself:
 %    \begin{macrocode}
 \makeatletter
 \ifdefined\href@plain\else
+\PassOptionsToPackage{normalem}{ulem}
 \RequirePackage{ulem}
 \fi
 \makeatother
