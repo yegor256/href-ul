@@ -2,9 +2,11 @@ hard hyperref
 hard pgfopts
 hard ulem
 hard url
+soft bookmark
 soft docshots
 soft environ
 soft etoolbox
+soft fail-fast
 soft href-ul
 soft hypdoc
 soft l3build
