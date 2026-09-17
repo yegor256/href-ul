@@ -91,7 +91,7 @@
 % \end{document}
 % \end{docshot}
 
-% Altering the size of the text leaves the height of the underline unaffected:
+% Altering the size of the text simultaneously alters the thickness of the underline:
 % \begin{docshot}
 % \documentclass{article}
 % \pagestyle{empty}
@@ -126,6 +126,7 @@
 % \changes{0.5.1}{2025/03/02}{Added text breaking capabilities to the second argument of \texttt{\char`\\href} and shifted from \texttt{ulem} to \texttt{soul} package.}
 % \changes{0.5.2}{2025/03/07}{Decided not to use \texttt{soul} package, because it's too fragile, and returned back to \texttt{ulem}.}
 % \changes{0.5.3}{2026/07/08}{Passed the \texttt{normalem} option to \texttt{ulem} (via \texttt{\char`\\PassOptionsToPackage}, to avoid option clashes) so that \texttt{\char`\\emph} keeps italicizing instead of underlining.}
+% \changes{0.5.4}{2026/09/17}{Made the thickness of the underline proportional to the size of the font, instead of the fixed \texttt{.4pt} of \texttt{ulem}.}
 
 % First, we process package options:
 %    \begin{macrocode}
@@ -151,6 +152,22 @@
 \makeatother
 %    \end{macrocode}
 
+% Then, we define our own underlining command. The |\ULthickness| of |ulem| is
+% the absolute dimension |.4pt|, which keeps the rule equally thin in a footnote
+% and in a title, where the heavier glyphs make it look faint. We express the
+% thickness in |em| instead, so that it follows the size of the font, the way
+% |\ULdepth| already does. At the default ten-point size, |0.04em| is the |.4pt|
+% that |ulem| would have used anyway. The redefinition stays inside a group,
+% because the document may load |ulem| on its own and expect |\uline| and
+% |\sout| to keep their usual weight:
+%    \begin{macrocode}
+\makeatletter
+\ifdefined\href@plain\else
+\newcommand\href@underline[1]{{\renewcommand\ULthickness{0.04em}\uline{#1}}}
+\fi
+\makeatother
+%    \end{macrocode}
+
 % Then, we include the |hyperref| package for PDF hyperlinks:
 %    \begin{macrocode}
 \PassOptionsToPackage{hidelinks}{hyperref}
@@ -167,7 +184,7 @@
 \catcode`\#=12
 \gdef\href@split$1#$2#$3\\$4{%
   \hyper@@link{$1}{$2}{%
-    \ifdefined\href@plain$4\else\uline{$4}\fi%
+    \ifdefined\href@plain$4\else\href@underline{$4}\fi%
   }%
   \endgroup%
 }
