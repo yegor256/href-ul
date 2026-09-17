@@ -1,0 +1,16 @@
+% SPDX-FileCopyrightText: Copyright (c) 2021-2026 Yegor Bugayenko
+% SPDX-License-Identifier: MIT
+
+\input{regression-test.tex}
+\documentclass{article}
+\usepackage{href-ul}
+\begin{document}
+\START
+
+\href{https://www.google.com}{\global\dimen0=\ULthickness\relax Google}
+
+{\Huge\href{https://www.google.com}{\global\dimen2=\ULthickness\relax Google}}
+
+\ifdim\dimen2>\dimen0\typeout{underline thickens with font size}\else\typeout{underline at Huge is not thicker than at normal size}\fi
+
+\END
